@@ -1,11 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TicTacToeService } from './services/tic-tac-toe.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +12,8 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent implements AfterViewInit {
   @ViewChild('X', { static: true }) xImage!: ElementRef<HTMLImageElement>;
   @ViewChild('O', { static: true }) oImage!: ElementRef<HTMLImageElement>;
-  private isXTurn: boolean = true;
+
+  constructor(private ticTacToeService: TicTacToeService) {}
 
   ngAfterViewInit(): void {
     this.addEventListeners();
@@ -27,22 +23,8 @@ export class AppComponent implements AfterViewInit {
     const cells = document.querySelectorAll('.cell');
     cells.forEach((cell) => {
       cell.addEventListener('click', (event) => {
-        this.drawShape(event.target as HTMLButtonElement);
+        this.ticTacToeService.drawShape(event.target as HTMLButtonElement);
       });
     });
-  }
-
-  public drawShape(button: HTMLButtonElement): void {
-    if (button.hasChildNodes()) return;
-
-    const img = this.isXTurn
-      ? this.xImage.nativeElement
-      : this.oImage.nativeElement;
-    const imgElement = img.cloneNode(true) as HTMLImageElement;
-    imgElement.hidden = false;
-    button.appendChild(imgElement);
-
-    button.disabled = true;
-    this.isXTurn = !this.isXTurn;
   }
 }
