@@ -1,11 +1,14 @@
-<div class="board">
-  <button class="cell" (click)="drawShape(0,0,$event)"></button>
-  <button class="cell" (click)="drawShape(0,1,$event)"></button>
-  <button class="cell" (click)="drawShape(0,2,$event)"></button>
-  <button class="cell" (click)="drawShape(1,0,$event)"></button>
-  <button class="cell" (click)="drawShape(1,1,$event)"></button>
-  <button class="cell" (click)="drawShape(1,2,$event)"></button>
-  <button class="cell" (click)="drawShape(2,0,$event)"></button>
-  <button class="cell" (click)="drawShape(2,1,$event)"></button>
-  <button class="cell" (click)="drawShape(2,2,$event)"></button>
+<div id="game">
+  <h1 id="game-result">{{gameResult}}</h1>
+  <div class="board">
+    <button class="cell" (click)="drawShape(0,0,$event)"></button>
+    <button class="cell" (click)="drawShape(0,1,$event)"></button>
+    <button class="cell" (click)="drawShape(0,2,$event)"></button>
+    <button class="cell" (click)="drawShape(1,0,$event)"></button>
+    <button class="cell" (click)="drawShape(1,1,$event)"></button>
+    <button class="cell" (click)="drawShape(1,2,$event)"></button>
+    <button class="cell" (click)="drawShape(2,0,$event)"></button>
+    <button class="cell" (click)="drawShape(2,1,$event)"></button>
+    <button class="cell" (click)="drawShape(2,2,$event)"></button>
+  </div>
 </div>

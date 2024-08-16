@@ -1,5 +1,7 @@
-* {
-  box-sizing: border-box;
+.ultimate-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .board {
@@ -24,4 +26,14 @@
 
 .cell:disabled {
   cursor: default;
+}
+
+.winning-cell {
+  background-color: #c9ffb8;
+}
+
+#game-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

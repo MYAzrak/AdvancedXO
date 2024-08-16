@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,8 @@ export class TicTacToeService {
   private readonly oImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
   private board: string[][];
+  private gameResult = new Subject<string>();
+  public msgFromService: Observable<string> = this.gameResult.asObservable();
 
   constructor() {
     this.xImage.src = '../assets/images/X.svg';
@@ -89,27 +92,17 @@ export class TicTacToeService {
 
   private endGame(message: string): void {
     const canvas = document.createElement('canvas');
+    this.styleCanvas(canvas);
     document.body.appendChild(canvas);
+    this.gameResult.next(message);
+  }
 
+  private styleCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
     canvas.style.left = '0';
     canvas.style.zIndex = '1000';
-    canvas.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-
-    // Get the canvas context to draw on it
-    const context = canvas.getContext('2d');
-    if (context) {
-      context.fillStyle = 'white';
-      context.font = '48px Arial';
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-
-      // Draw the message in the middle of the screen
-      context.fillText(message, canvas.width / 2, canvas.height / 2);
-    }
   }
 }
