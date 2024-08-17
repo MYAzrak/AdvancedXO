@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,9 @@ export class TicTacToeService {
   private isXTurn: boolean = true;
   private board: string[][];
   private gameResult = new Subject<string>();
-  public msgFromService: Observable<string> = this.gameResult.asObservable();
+  public message$: Observable<string> = this.gameResult.asObservable();
+  private isGameDone = new BehaviorSubject<boolean>(false);
+  public gameState$: Observable<boolean> = this.isGameDone.asObservable();
 
   constructor() {
     this.xImage.src = '../assets/images/X.svg';
@@ -60,6 +62,7 @@ export class TicTacToeService {
         this.board[0][i] === this.board[1][i] &&
         this.board[1][i] === this.board[2][i]
       ) {
+        this.isGameDone.next(true);
         return true;
       }
     }
@@ -70,6 +73,7 @@ export class TicTacToeService {
       this.board[0][0] === this.board[1][1] &&
       this.board[1][1] === this.board[2][2]
     ) {
+      this.isGameDone.next(true);
       return true;
     }
 
@@ -79,6 +83,7 @@ export class TicTacToeService {
       this.board[0][2] === this.board[1][1] &&
       this.board[1][1] === this.board[2][0]
     ) {
+      this.isGameDone.next(true);
       return true;
     }
 
@@ -103,6 +108,6 @@ export class TicTacToeService {
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
     canvas.style.left = '0';
-    canvas.style.zIndex = '1000';
+    canvas.style.zIndex = '1';
   }
 }

@@ -11,4 +11,7 @@
     <button class="cell" (click)="drawShape(2,1,$event)"></button>
     <button class="cell" (click)="drawShape(2,2,$event)"></button>
   </div>
+  @if (isGameFinished) {
+  <button id="restart" (click)="reloadPage()">Play Again</button>
+  }
 </div>
