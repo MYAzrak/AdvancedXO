@@ -24,7 +24,12 @@ export class TicTacToeService {
     ];
   }
 
-  public drawShape(row: number, col: number, button: HTMLButtonElement): void {
+  public drawShape(
+    boardNum: number,
+    row: number,
+    col: number,
+    button: HTMLButtonElement
+  ): void {
     if (button.hasChildNodes()) return;
 
     const img = this.isXTurn ? this.xImage : this.oImage;

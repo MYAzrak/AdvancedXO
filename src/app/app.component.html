@@ -1,104 +1,104 @@
 <div id="game">
   <h1 id="game-result">{{gameResult}}</h1>
   <div id="ultimate-board">
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="zeroth-board">
+      <button class="cell" (click)="drawShape(0,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(0,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(0,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(0,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(0,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(0,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(0,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(0,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(0,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="first-board">
+      <button class="cell" (click)="drawShape(1,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(1,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(1,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(1,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(1,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(1,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(1,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(1,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(1,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="second-board">
+      <button class="cell" (click)="drawShape(2,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(2,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(2,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(2,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(2,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(2,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(2,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(2,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(2,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="third-board">
+      <button class="cell" (click)="drawShape(3,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(3,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(3,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(3,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(3,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(3,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(3,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(3,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(3,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="fourth-board">
+      <button class="cell" (click)="drawShape(4,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(4,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(4,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(4,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(4,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(4,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(4,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(4,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(4,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="fifth-board">
+      <button class="cell" (click)="drawShape(5,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(5,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(5,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(5,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(5,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(5,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(5,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(5,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(5,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="sixth-board">
+      <button class="cell" (click)="drawShape(6,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(6,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(6,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(6,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(6,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(6,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(6,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(6,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(6,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="seventh-board">
+      <button class="cell" (click)="drawShape(7,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(7,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(7,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(7,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(7,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(7,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(7,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(7,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(7,2,2,$event)"></button>
     </div>
-    <div class="small-board">
-      <button class="cell" (click)="drawShape(0,0,$event)"></button>
-      <button class="cell" (click)="drawShape(0,1,$event)"></button>
-      <button class="cell" (click)="drawShape(0,2,$event)"></button>
-      <button class="cell" (click)="drawShape(1,0,$event)"></button>
-      <button class="cell" (click)="drawShape(1,1,$event)"></button>
-      <button class="cell" (click)="drawShape(1,2,$event)"></button>
-      <button class="cell" (click)="drawShape(2,0,$event)"></button>
-      <button class="cell" (click)="drawShape(2,1,$event)"></button>
-      <button class="cell" (click)="drawShape(2,2,$event)"></button>
+    <div class="small-board" id="eighth-board">
+      <button class="cell" (click)="drawShape(8,0,0,$event)"></button>
+      <button class="cell" (click)="drawShape(8,0,1,$event)"></button>
+      <button class="cell" (click)="drawShape(8,0,2,$event)"></button>
+      <button class="cell" (click)="drawShape(8,1,0,$event)"></button>
+      <button class="cell" (click)="drawShape(8,1,1,$event)"></button>
+      <button class="cell" (click)="drawShape(8,1,2,$event)"></button>
+      <button class="cell" (click)="drawShape(8,2,0,$event)"></button>
+      <button class="cell" (click)="drawShape(8,2,1,$event)"></button>
+      <button class="cell" (click)="drawShape(8,2,2,$event)"></button>
     </div>
   </div>
   @if (isGameFinished) {

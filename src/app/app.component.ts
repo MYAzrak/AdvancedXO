@@ -12,6 +12,7 @@ import { TicTacToeService } from './services/tic-tac-toe.service';
 export class AppComponent {
   public gameResult: string = '';
   public isGameFinished: boolean = false;
+
   constructor(private ticTacToeService: TicTacToeService) {}
 
   ngOnInit() {
@@ -24,9 +25,9 @@ export class AppComponent {
     });
   }
 
-  public drawShape(row: number, col: number, event: Event): void {
+  public drawShape(boardNum:number, row: number, col: number, event: Event): void {
     const button = event.target as HTMLButtonElement;
-    this.ticTacToeService.drawShape(row, col, button);
+    this.ticTacToeService.drawShape(boardNum, row, col, button);
   }
 
   public reloadPage(): void {
