@@ -8,7 +8,7 @@ export class TicTacToeService {
   private readonly xImage: HTMLImageElement = document.createElement('img');
   private readonly oImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
-  private board: string[][];
+  private board: string[][][];
   private gameResult = new Subject<string>();
   public message$: Observable<string> = this.gameResult.asObservable();
   private isGameDone = new BehaviorSubject<boolean>(false);
@@ -18,9 +18,60 @@ export class TicTacToeService {
     this.xImage.src = '../assets/images/X.svg';
     this.oImage.src = '../assets/images/O.svg';
     this.board = [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', ''],
+      // Board 0
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 1
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 2
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 3
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 4
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 5
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 6
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 7
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
+      // Board 8
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ],
     ];
   }
 
@@ -38,23 +89,23 @@ export class TicTacToeService {
     button.appendChild(imgElement);
     button.disabled = true;
 
-    this.board[row][col] = this.isXTurn ? 'X' : 'O';
-    if (this.checkWinning()) {
-      this.endGame(`${this.board[row][col]} won!`);
-    } else if (this.isBoardFull()) {
+    this.board[boardNum][row][col] = this.isXTurn ? 'X' : 'O';
+    if (this.checkWinning(boardNum)) {
+      this.endGame(`${this.board[boardNum][row][col]} won!`);
+    } else if (this.isBoardFull(boardNum)) {
       this.endGame("It's a tie!");
     }
 
     this.isXTurn = !this.isXTurn;
   }
 
-  private checkWinning(): boolean {
+  private checkWinning(boardNum: number): boolean {
     // Check rows
     for (let i = 0; i < 3; i++) {
       if (
-        this.board[i][0] &&
-        this.board[i][0] === this.board[i][1] &&
-        this.board[i][1] === this.board[i][2]
+        this.board[boardNum][i][0] &&
+        this.board[boardNum][i][0] === this.board[boardNum][i][1] &&
+        this.board[boardNum][i][1] === this.board[boardNum][i][2]
       ) {
         return true;
       }
@@ -63,9 +114,9 @@ export class TicTacToeService {
     // Check columns
     for (let i = 0; i < 3; i++) {
       if (
-        this.board[0][i] &&
-        this.board[0][i] === this.board[1][i] &&
-        this.board[1][i] === this.board[2][i]
+        this.board[boardNum][0][i] &&
+        this.board[boardNum][0][i] === this.board[boardNum][1][i] &&
+        this.board[boardNum][1][i] === this.board[boardNum][2][i]
       ) {
         this.isGameDone.next(true);
         return true;
@@ -74,9 +125,9 @@ export class TicTacToeService {
 
     // Check main diagonal (top-left to bottom-right)
     if (
-      this.board[0][0] &&
-      this.board[0][0] === this.board[1][1] &&
-      this.board[1][1] === this.board[2][2]
+      this.board[boardNum][0][0] &&
+      this.board[boardNum][0][0] === this.board[boardNum][1][1] &&
+      this.board[boardNum][1][1] === this.board[boardNum][2][2]
     ) {
       this.isGameDone.next(true);
       return true;
@@ -84,9 +135,9 @@ export class TicTacToeService {
 
     // Check anti-diagonal (top-right to bottom-left)
     if (
-      this.board[0][2] &&
-      this.board[0][2] === this.board[1][1] &&
-      this.board[1][1] === this.board[2][0]
+      this.board[boardNum][0][2] &&
+      this.board[boardNum][0][2] === this.board[boardNum][1][1] &&
+      this.board[boardNum][1][1] === this.board[boardNum][2][0]
     ) {
       this.isGameDone.next(true);
       return true;
@@ -96,8 +147,10 @@ export class TicTacToeService {
     return false;
   }
 
-  private isBoardFull(): boolean {
-    return this.board.every((row) => row.every((cell) => cell !== ''));
+  private isBoardFull(boardNum: number): boolean {
+    return this.board[boardNum].every((row) =>
+      row.every((cell) => cell !== '')
+    );
   }
 
   private endGame(message: string): void {
