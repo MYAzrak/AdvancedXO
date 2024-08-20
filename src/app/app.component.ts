@@ -10,49 +10,119 @@ import { TicTacToeService } from './services/tic-tac-toe.service';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  public gameResult: string = '';
-  public isGameFinished: boolean = false;
+  private readonly xImage: HTMLImageElement = document.createElement('img');
+  private readonly oImage: HTMLImageElement = document.createElement('img');
+  private isXTurn: boolean = true;
+  public gameResultMsg: string = '';
 
-  constructor(private ticTacToeService: TicTacToeService) {}
-
-  ngOnInit() {
-    this.ticTacToeServiceSubscription();
-    this.drawBigX(2);
+  constructor(private ticTacToeService: TicTacToeService) {
+    this.xImage.src = '../assets/images/X.svg';
+    this.oImage.src = '../assets/images/O.svg';
   }
 
-  private drawBigX(boardNum: number) {
-    const xImage: HTMLImageElement = document.createElement('img');
-    xImage.src = '../assets/images/X.svg';
-    xImage.style.position = 'absolute';
-    xImage.style.background = '#f1f1f1';
-    xImage.style.border = '3px solid black';
-    xImage.style.height = '100%';
-
-    const smallBoard = document.getElementById(`board-${boardNum}`);
-    smallBoard!.appendChild(xImage);
-  }
-
-  private ticTacToeServiceSubscription(): void {
-    this.ticTacToeService.message$.subscribe((message) => {
-      this.gameResult = message;
-    });
-
-    this.ticTacToeService.gameState$.subscribe((state) => {
-      this.isGameFinished = state;
-    });
-  }
-
-  public drawShape(
+  public drawInSmallBoard(
     boardNum: number,
     row: number,
     col: number,
     event: Event
   ): void {
     const button = event.target as HTMLButtonElement;
-    this.ticTacToeService.drawShape(boardNum, row, col, button);
+
+    const img = this.isXTurn ? this.xImage : this.oImage;
+    const imgClone = img.cloneNode(true) as HTMLImageElement;
+    button.appendChild(imgClone);
+    button.disabled = true;
+
+    if (this.ticTacToeService.checkWinning(boardNum, row, col, this.isXTurn)) {
+      // this.showPlayAgainBtn();
+      this.drawInBigBoard(boardNum);
+      this.endGame(`${this.isXTurn ? 'X' : 'Y'} won!`);
+    } else if (this.ticTacToeService.isBoardFull(boardNum)) {
+      this.endGame("It's a tie!");
+      // this.showPlayAgainBtn();
+    }
+
+    // Flip turns
+    this.isXTurn = !this.isXTurn;
+  }
+
+  private drawInBigBoard(boardNum: number) {
+    const img = this.isXTurn ? this.xImage : this.oImage;
+    const imgClone = img.cloneNode(true) as HTMLImageElement;
+    this.styleImg(imgClone);
+
+    const smallBoard = document.getElementById(`board-${boardNum}`);
+    smallBoard!.appendChild(imgClone);
+  }
+
+  private endGame(message: string): void {
+    const canvas = document.createElement('canvas');
+    this.styleCanvas(canvas);
+    document.body.appendChild(canvas);
+    this.gameResultMsg = message;
+  }
+
+  private styleCanvas(canvas: HTMLCanvasElement): void {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.zIndex = '1';
+  }
+
+  private styleImg(img: HTMLImageElement): void {
+    img.style.position = 'absolute';
+    img.style.background = '#f1f1f1';
+    img.style.border = '3px solid black';
+    img.style.boxSizing = 'border-box';
+    img.style.height = '100%';
+  }
+
+  private showPlayAgainBtn(): void {
+    try {
+      const playAgainBtn = document.getElementById('play-again');
+      if (playAgainBtn) {
+        playAgainBtn.hidden = false;
+      } else {
+        throw new Error('Play Again button not found');
+      }
+    } catch (err) {
+      console.error('Error: Play Again button is null or not found.', err);
+    }
   }
 
   public playAgain(): void {
     location.reload();
+  }
+
+  private blockBoard(boardNum: number): void {
+    const smallBoard = document.getElementById(`board-${boardNum}`);
+    if (smallBoard) {
+      smallBoard.classList.add('blocked-board');
+
+      // Disable buttons
+      const buttons = smallBoard.getElementsByTagName('button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+      }
+    } else {
+      console.error(`Board-${boardNum} not found.`);
+    }
+  }
+
+  private unblockBoard(boardNum: number): void {
+    const smallBoard = document.getElementById(`board-${boardNum}`);
+    if (smallBoard) {
+      smallBoard.classList.remove('blocked-board');
+
+      // Enable buttons
+      const buttons = smallBoard.getElementsByTagName('button');
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = false;
+      }
+    } else {
+      console.error(`Board-${boardNum} not found.`);
+    }
   }
 }
