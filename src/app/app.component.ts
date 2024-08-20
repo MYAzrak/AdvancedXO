@@ -16,6 +16,23 @@ export class AppComponent {
   constructor(private ticTacToeService: TicTacToeService) {}
 
   ngOnInit() {
+    this.ticTacToeServiceSubscription();
+    this.drawBigX(2);
+  }
+
+  private drawBigX(boardNum: number) {
+    const xImage: HTMLImageElement = document.createElement('img');
+    xImage.src = '../assets/images/X.svg';
+    xImage.style.position = 'absolute';
+    xImage.style.background = '#f1f1f1';
+    xImage.style.border = '3px solid black';
+    xImage.style.height = '100%';
+
+    const smallBoard = document.getElementById(`board-${boardNum}`);
+    smallBoard!.appendChild(xImage);
+  }
+
+  private ticTacToeServiceSubscription(): void {
     this.ticTacToeService.message$.subscribe((message) => {
       this.gameResult = message;
     });
@@ -25,12 +42,17 @@ export class AppComponent {
     });
   }
 
-  public drawShape(boardNum:number, row: number, col: number, event: Event): void {
+  public drawShape(
+    boardNum: number,
+    row: number,
+    col: number,
+    event: Event
+  ): void {
     const button = event.target as HTMLButtonElement;
     this.ticTacToeService.drawShape(boardNum, row, col, button);
   }
 
-  public reloadPage(): void {
+  public playAgain(): void {
     location.reload();
   }
 }

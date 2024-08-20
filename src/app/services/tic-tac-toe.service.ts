@@ -107,6 +107,7 @@ export class TicTacToeService {
         this.board[boardNum][i][0] === this.board[boardNum][i][1] &&
         this.board[boardNum][i][1] === this.board[boardNum][i][2]
       ) {
+        this.isGameDone.next(true);
         return true;
       }
     }

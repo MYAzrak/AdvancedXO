@@ -1,7 +1,7 @@
 <div id="game">
   <h1 id="game-result">{{gameResult}}</h1>
   <div id="ultimate-board">
-    <div class="small-board" id="zeroth-board">
+    <div class="small-board" id="board-0">
       <button class="cell" (click)="drawShape(0,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(0,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(0,0,2,$event)"></button>
@@ -12,7 +12,7 @@
       <button class="cell" (click)="drawShape(0,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(0,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="first-board">
+    <div class="small-board" id="board-1">
       <button class="cell" (click)="drawShape(1,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(1,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(1,0,2,$event)"></button>
@@ -23,7 +23,7 @@
       <button class="cell" (click)="drawShape(1,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(1,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="second-board">
+    <div class="small-board" id="board-2">
       <button class="cell" (click)="drawShape(2,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(2,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(2,0,2,$event)"></button>
@@ -34,7 +34,7 @@
       <button class="cell" (click)="drawShape(2,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(2,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="third-board">
+    <div class="small-board" id="board-3">
       <button class="cell" (click)="drawShape(3,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(3,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(3,0,2,$event)"></button>
@@ -45,7 +45,7 @@
       <button class="cell" (click)="drawShape(3,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(3,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="fourth-board">
+    <div class="small-board" id="board-4">
       <button class="cell" (click)="drawShape(4,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(4,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(4,0,2,$event)"></button>
@@ -56,7 +56,7 @@
       <button class="cell" (click)="drawShape(4,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(4,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="fifth-board">
+    <div class="small-board" id="board-5">
       <button class="cell" (click)="drawShape(5,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(5,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(5,0,2,$event)"></button>
@@ -67,7 +67,7 @@
       <button class="cell" (click)="drawShape(5,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(5,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="sixth-board">
+    <div class="small-board" id="board-6">
       <button class="cell" (click)="drawShape(6,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(6,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(6,0,2,$event)"></button>
@@ -78,7 +78,7 @@
       <button class="cell" (click)="drawShape(6,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(6,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="seventh-board">
+    <div class="small-board" id="board-7">
       <button class="cell" (click)="drawShape(7,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(7,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(7,0,2,$event)"></button>
@@ -89,7 +89,7 @@
       <button class="cell" (click)="drawShape(7,2,1,$event)"></button>
       <button class="cell" (click)="drawShape(7,2,2,$event)"></button>
     </div>
-    <div class="small-board" id="eighth-board">
+    <div class="small-board" id="board-8">
       <button class="cell" (click)="drawShape(8,0,0,$event)"></button>
       <button class="cell" (click)="drawShape(8,0,1,$event)"></button>
       <button class="cell" (click)="drawShape(8,0,2,$event)"></button>
@@ -102,6 +102,6 @@
     </div>
   </div>
   @if (isGameFinished) {
-  <button id="restart" (click)="reloadPage()">Play Again</button>
+  <button id="restart" (click)="playAgain()">Play Again</button>
   }
 </div>
