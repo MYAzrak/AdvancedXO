@@ -12,12 +12,14 @@ import { TicTacToeService } from './services/tic-tac-toe.service';
 export class AppComponent {
   private readonly xImage: HTMLImageElement = document.createElement('img');
   private readonly oImage: HTMLImageElement = document.createElement('img');
+  private readonly minusImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
   public gameResultMsg: string = '';
 
   constructor(private ticTacToeService: TicTacToeService) {
     this.xImage.src = '../assets/images/X.svg';
     this.oImage.src = '../assets/images/O.svg';
+    this.minusImage.src = '../assets/images/minus.svg';
   }
 
   public drawInSmallBoard(
@@ -33,26 +35,52 @@ export class AppComponent {
     button.appendChild(imgClone);
     button.disabled = true;
 
-    if (this.ticTacToeService.checkWinning(boardNum, row, col, this.isXTurn)) {
-      // this.showPlayAgainBtn();
-      this.drawInBigBoard(boardNum);
-      this.endGame(`${this.isXTurn ? 'X' : 'Y'} won!`);
-    } else if (this.ticTacToeService.isBoardFull(boardNum)) {
-      this.endGame("It's a tie!");
-      // this.showPlayAgainBtn();
+    if (
+      this.ticTacToeService.checkSmallBoardWinning(
+        boardNum,
+        row,
+        col,
+        this.isXTurn
+      )
+    ) {
+      this.drawInBigBoard(boardNum, false);
+      this.checkGameEnd();
+    } else if (this.ticTacToeService.isSmallBoardFull(boardNum)) {
+      this.drawInBigBoard(boardNum, true);
+      this.checkGameEnd();
     }
 
     // Flip turns
     this.isXTurn = !this.isXTurn;
   }
 
-  private drawInBigBoard(boardNum: number) {
-    const img = this.isXTurn ? this.xImage : this.oImage;
+  private checkGameEnd(): void {
+    if (this.ticTacToeService.checkBigBoardWinning()) {
+      this.endGame(`${this.isXTurn ? 'X' : 'O'} won!`);
+      this.showPlayAgainBtn();
+    } else if (this.ticTacToeService.isBigBoardFull()) {
+      this.endGame("It's a tie!");
+      this.showPlayAgainBtn();
+    }
+  }
+
+  private drawInBigBoard(boardNum: number, isTie: boolean): void {
+    let img: HTMLImageElement;
+    if (isTie) {
+      img = this.minusImage;
+    } else {
+      img = this.isXTurn ? this.xImage : this.oImage;
+    }
+
     const imgClone = img.cloneNode(true) as HTMLImageElement;
     this.styleImg(imgClone);
 
     const smallBoard = document.getElementById(`board-${boardNum}`);
-    smallBoard!.appendChild(imgClone);
+    if (smallBoard) {
+      smallBoard.appendChild(imgClone);
+    } else {
+      console.error(`Board-${boardNum} not found.`);
+    }
   }
 
   private endGame(message: string): void {
