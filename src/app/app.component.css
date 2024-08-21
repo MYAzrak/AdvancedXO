@@ -7,8 +7,8 @@
 }
 
 #play-again {
-  background-color: #c9ffb8;
-  border: 2px solid #000;
+  background-color: #ffb8b8;
+  border: 2px solid #800000;
   padding: 10px 20px;
   font-size: 24px;
   cursor: pointer;
@@ -17,13 +17,14 @@
 }
 
 #play-again:hover {
-  background-color: #b2e693;
+  background-color: #ff9999;
   transform: scale(1.05);
 }
 
 #play-again:active {
-  background-color: #a0d47f;
+  background-color: #ff6666;
 }
+
 
 #ultimate-board {
   display: grid;
@@ -76,5 +77,5 @@
 
 .blocked-board {
   cursor: not-allowed;
-  background-color: #ff7d7d;
+  background-color: #ff9999;
 }

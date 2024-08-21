@@ -14,7 +14,8 @@ export class AppComponent {
   private readonly oImage: HTMLImageElement = document.createElement('img');
   private readonly minusImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
-  public gameMsg: string = '';
+  public gameMsg: string = 'X Turn';
+  private gameEnded: boolean = false;
   public unblockedBoardNum: number = 0;
 
   constructor(private ticTacToeService: TicTacToeService) {
@@ -68,16 +69,16 @@ export class AppComponent {
 
     // Flip turns
     this.isXTurn = !this.isXTurn;
-
+    if (!this.gameEnded) this.gameMsg = `${this.isXTurn ? 'X' : 'O'} Turn`;
   }
 
   private checkGameEnd(): void {
     if (this.ticTacToeService.checkBigBoardWinning()) {
       this.endGame(`${this.isXTurn ? 'X' : 'O'} won!`);
-      this.showPlayAgainBtn();
+      this.gameEnded = true;
     } else if (this.ticTacToeService.isBigBoardFull()) {
       this.endGame("It's a tie!");
-      this.showPlayAgainBtn();
+      this.gameEnded = true;
     }
   }
 
@@ -122,19 +123,6 @@ export class AppComponent {
     img.style.border = '3px solid black';
     img.style.boxSizing = 'border-box';
     img.style.height = '100%';
-  }
-
-  private showPlayAgainBtn(): void {
-    try {
-      const playAgainBtn = document.getElementById('play-again');
-      if (playAgainBtn) {
-        playAgainBtn.hidden = false;
-      } else {
-        throw new Error('Play Again button not found');
-      }
-    } catch (err) {
-      console.error('Error: Play Again button is null or not found.', err);
-    }
   }
 
   public playAgain(): void {
