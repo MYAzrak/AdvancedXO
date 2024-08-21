@@ -23,7 +23,7 @@ Welcome to Ultimate Tic-Tac-Toe! This advanced game is played by two players on 
 2. Navigate to the project directory:
 
    ```sh
-   cd XOMasters
+   cd AdvancedXO
    ```
 
 3. Install dependencies:
