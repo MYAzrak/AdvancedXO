@@ -135,6 +135,7 @@ export class AppComponent {
       this.unblockBoard(i);
     }
   }
+
   private styleMsg(message: string): void {
     this.gameMsg = message;
     const msgElement = document.getElementById('game-result');
