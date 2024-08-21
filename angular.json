@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TicTacPro": {
+    "XOMasters": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "TicTacPro:build:production"
+              "buildTarget": "XOMasters:build:production"
             },
             "development": {
-              "buildTarget": "TicTacPro:build:development"
+              "buildTarget": "XOMasters:build:development"
             }
           },
           "defaultConfiguration": "development"

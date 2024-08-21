@@ -53,7 +53,7 @@ export class AppComponent {
       this.checkGameEnd();
     }
 
-    // TicTacPro logic
+    // XOMasters logic
     if (this.ticTacToeService.isBigBoardFilledAt(row, col)) {
       for (let i = 0; i < 9; i++) {
         this.unblockBoard(i);
