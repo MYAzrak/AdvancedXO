@@ -5,6 +5,7 @@ An advanced Tic Tac Toe Angular project hosted on firebase.
 ## Game Explanation
 
 Welcome to Ultimate Tic-Tac-Toe! This advanced game is played by two players on a large Tic-Tac-Toe board made up of nine smaller boards. Players take turns marking X's and O's, aiming to win the small boards to ultimately claim three in a row on the large board. The twist? Where you play on the small board determines where your opponent must play next. Win the game by being the first to get three in a row on the large board. If a small board is already won, the player can move anywhere. If no one achieves three in a row on the large board, the game ends in a tie.
+![image](https://github.com/user-attachments/assets/43c2eb64-5758-4698-b6bb-a8782d29db57)
 
 ## Prerequisites
 
