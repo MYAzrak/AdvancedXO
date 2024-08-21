@@ -75,6 +75,6 @@
 }
 
 .blocked-board{
-  cursor: default;
+  cursor: not-allowed;
   background-color: white;
 }

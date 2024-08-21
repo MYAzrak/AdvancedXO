@@ -15,6 +15,7 @@ export class AppComponent {
   private readonly minusImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
   public gameResultMsg: string = '';
+  temp = 0;
 
   constructor(private ticTacToeService: TicTacToeService) {
     this.xImage.src = '../assets/images/X.svg';
@@ -30,10 +31,13 @@ export class AppComponent {
   ): void {
     const button = event.target as HTMLButtonElement;
 
+    // Add the X/O image & disable that button
     const img = this.isXTurn ? this.xImage : this.oImage;
     const imgClone = img.cloneNode(true) as HTMLImageElement;
     button.appendChild(imgClone);
     button.disabled = true;
+
+    // TicTacPro logic
 
     if (
       this.ticTacToeService.checkSmallBoardWinning(
@@ -129,11 +133,19 @@ export class AppComponent {
     if (smallBoard) {
       smallBoard.classList.add('blocked-board');
 
-      // Disable buttons
-      const buttons = smallBoard.getElementsByTagName('button');
-      for (let i = 0; i < buttons.length; i++) {
-        buttons[i].disabled = true;
-      }
+      // Draw a temporary canvas on that board
+      const canvas = document.createElement('canvas');
+      canvas.width = smallBoard.clientWidth;
+      canvas.height = smallBoard.clientHeight;
+
+      // Position the canvas over the small board
+      canvas.style.position = 'absolute';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.zIndex = '1';
+      smallBoard.appendChild(canvas);
     } else {
       console.error(`Board-${boardNum} not found.`);
     }
@@ -144,10 +156,12 @@ export class AppComponent {
     if (smallBoard) {
       smallBoard.classList.remove('blocked-board');
 
-      // Enable buttons
-      const buttons = smallBoard.getElementsByTagName('button');
-      for (let i = 0; i < buttons.length; i++) {
-        buttons[i].disabled = false;
+      // Find and remove the canvas element
+      const canvas = smallBoard.querySelector('canvas');
+      if (canvas) {
+        smallBoard.removeChild(canvas);
+      } else {
+        console.error(`Canvas not found on Board-${boardNum}.`);
       }
     } else {
       console.error(`Board-${boardNum} not found.`);
