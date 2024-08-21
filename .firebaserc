@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "xomasters"
-  }
+    "default": "xomasters",
+    "main": "advancedxo"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
