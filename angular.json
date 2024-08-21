@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AdvancedTicTacToe": {
+    "TicTacPro": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -57,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "AdvancedTicTacToe:build:production"
+              "buildTarget": "TicTacPro:build:production"
             },
             "development": {
-              "buildTarget": "AdvancedTicTacToe:build:development"
+              "buildTarget": "TicTacPro:build:development"
             }
           },
           "defaultConfiguration": "development"
