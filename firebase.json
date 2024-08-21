@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "dist/advanced-tic-tac-toe",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
