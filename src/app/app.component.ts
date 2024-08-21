@@ -14,8 +14,8 @@ export class AppComponent {
   private readonly oImage: HTMLImageElement = document.createElement('img');
   private readonly minusImage: HTMLImageElement = document.createElement('img');
   private isXTurn: boolean = true;
-  public gameResultMsg: string = '';
-  temp = 0;
+  public gameMsg: string = '';
+  public unblockedBoardNum: number = 0;
 
   constructor(private ticTacToeService: TicTacToeService) {
     this.xImage.src = '../assets/images/X.svg';
@@ -37,8 +37,6 @@ export class AppComponent {
     button.appendChild(imgClone);
     button.disabled = true;
 
-    // TicTacPro logic
-
     if (
       this.ticTacToeService.checkSmallBoardWinning(
         boardNum,
@@ -54,8 +52,23 @@ export class AppComponent {
       this.checkGameEnd();
     }
 
+    // TicTacPro logic
+    if (this.ticTacToeService.isBigBoardFilledAt(row, col)) {
+      for (let i = 0; i < 9; i++) {
+        this.unblockBoard(i);
+      }
+    } else {
+      this.unblockedBoardNum = row * 3 + col;
+      for (let i = 0; i < 9; i++) {
+        if (i === this.unblockedBoardNum)
+          this.unblockBoard(this.unblockedBoardNum);
+        else this.blockBoard(i);
+      }
+    }
+
     // Flip turns
     this.isXTurn = !this.isXTurn;
+
   }
 
   private checkGameEnd(): void {
@@ -91,7 +104,7 @@ export class AppComponent {
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
     document.body.appendChild(canvas);
-    this.gameResultMsg = message;
+    this.gameMsg = message;
   }
 
   private styleCanvas(canvas: HTMLCanvasElement): void {
@@ -157,9 +170,9 @@ export class AppComponent {
       smallBoard.classList.remove('blocked-board');
 
       // Find and remove the canvas element
-      const canvas = smallBoard.querySelector('canvas');
-      if (canvas) {
-        smallBoard.removeChild(canvas);
+      const canvases = smallBoard.querySelectorAll('canvas');
+      if (canvases.length > 0) {
+        canvases.forEach((canvas) => smallBoard.removeChild(canvas));
       } else {
         console.error(`Canvas not found on Board-${boardNum}.`);
       }

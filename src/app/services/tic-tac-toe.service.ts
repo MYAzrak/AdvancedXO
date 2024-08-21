@@ -122,6 +122,10 @@ export class TicTacToeService {
     }
   }
 
+  public isBigBoardFilledAt(row: number, col: number): boolean {
+    return this.bigBoard[row][col] !== '';
+  }
+
   public checkSmallBoardWinning(
     boardNum: number,
     row: number,

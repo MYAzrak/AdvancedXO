@@ -74,7 +74,7 @@
   padding: 0;
 }
 
-.blocked-board{
+.blocked-board {
   cursor: not-allowed;
-  background-color: white;
+  background-color: #ff7d7d;
 }
