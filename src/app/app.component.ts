@@ -31,7 +31,6 @@ export class AppComponent {
         'big-image'
       ) as HTMLCollectionOf<HTMLImageElement>;
       if (img.length > 0) {
-        console.log(img);
         img[0].style.backgroundColor = '#99ff99';
         img[0].style.border = '3px solid #006400';
       } else {
@@ -126,14 +125,17 @@ export class AppComponent {
   }
 
   private endGame(message: string): void {
+    const boards = document.getElementsByClassName(
+      'blocked-board'
+    ) as HTMLCollectionOf<HTMLDivElement>;
+    for (let i = 0; i < boards.length; i++) {
+      boards[i].classList.remove('blocked-board');
+    }
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
     document.body.appendChild(canvas);
     this.styleMsg(message);
     this.stylePlayAgainButton();
-    for (let i = 0; i < 9; i++) {
-      this.unblockBoard(i);
-    }
   }
 
   private styleMsg(message: string): void {
@@ -215,13 +217,11 @@ export class AppComponent {
     const smallBoard = document.getElementById(`board-${boardNum}`);
     if (smallBoard) {
       smallBoard.classList.remove('blocked-board');
-
       // Find and remove the canvas element
       const canvases = smallBoard.querySelectorAll('canvas');
       if (canvases.length > 0) {
         canvases.forEach((canvas) => smallBoard.removeChild(canvas));
       } else {
-        console.error(`Canvas not found on Board-${boardNum}.`);
       }
     } else {
       console.error(`Board-${boardNum} not found.`);
