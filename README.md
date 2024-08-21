@@ -1,4 +1,4 @@
-# XOMasters
+# AdvancedXO
 
 An advanced Tic Tac Toe Angular project hosted on firebase.
 
@@ -47,3 +47,7 @@ Navigate to `http://localhost:4200/` in your browser. The application will autom
 - The application is hosted on Firebase and can be accessed at: <https://xomasters.web.app/>.
 - The project is integrated with Firebase for CI/CD, ensuring that any changes pushed to the main branch are automatically deployed to the live site.
 - The CI/CD pipeline is set up using GitHub Actions. This automates the build, test, and deployment process, making sure that the application is always up-to-date.
+
+## To-Do List
+
+- Adding online multiplayer option.
