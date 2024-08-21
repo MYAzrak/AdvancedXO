@@ -24,6 +24,40 @@ export class AppComponent {
     this.minusImage.src = '../assets/images/minus.svg';
   }
 
+  private markAsWinningBoard(boardNum: number): void {
+    const winningBoard = document.getElementById(`board-${boardNum}`);
+    if (winningBoard) {
+      const img = winningBoard.getElementsByClassName(
+        'big-image'
+      ) as HTMLCollectionOf<HTMLImageElement>;
+      if (img.length > 0) {
+        console.log(img);
+        img[0].style.backgroundColor = '#99ff99';
+        img[0].style.border = '3px solid #006400';
+      } else {
+        console.error(`Image in board-${boardNum} not found.`);
+      }
+    } else {
+      console.error(`Board-${boardNum} not found.`);
+    }
+  }
+
+  private checkGameEnd(): void {
+    const winningBoardsNumbers = this.ticTacToeService.checkBigBoardWinning();
+    if (winningBoardsNumbers) {
+      for (let boardNum of winningBoardsNumbers) {
+        setTimeout(() => {
+          this.markAsWinningBoard(boardNum);
+        }, 1);
+      }
+      this.endGame(`${this.isXTurn ? 'X' : 'O'} won!`);
+      this.gameEnded = true;
+    } else if (this.ticTacToeService.isBigBoardFull()) {
+      this.endGame('Draw!');
+      this.gameEnded = true;
+    }
+  }
+
   public drawInSmallBoard(
     boardNum: number,
     row: number,
@@ -72,19 +106,9 @@ export class AppComponent {
     if (!this.gameEnded) this.gameMsg = `${this.isXTurn ? 'X' : 'O'} Turn`;
   }
 
-  private checkGameEnd(): void {
-    if (this.ticTacToeService.checkBigBoardWinning()) {
-      this.endGame(`${this.isXTurn ? 'X' : 'O'} won!`);
-      this.gameEnded = true;
-    } else if (this.ticTacToeService.isBigBoardFull()) {
-      this.endGame("It's a tie!");
-      this.gameEnded = true;
-    }
-  }
-
-  private drawInBigBoard(boardNum: number, isTie: boolean): void {
+  private drawInBigBoard(boardNum: number, isDraw: boolean): void {
     let img: HTMLImageElement;
-    if (isTie) {
+    if (isDraw) {
       img = this.minusImage;
     } else {
       img = this.isXTurn ? this.xImage : this.oImage;
@@ -105,7 +129,40 @@ export class AppComponent {
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
     document.body.appendChild(canvas);
+    this.styleMsg(message);
+    this.stylePlayAgainButton();
+    for (let i = 0; i < 9; i++) {
+      this.unblockBoard(i);
+    }
+  }
+  private styleMsg(message: string): void {
     this.gameMsg = message;
+    const msgElement = document.getElementById('game-result');
+    if (msgElement) {
+      msgElement.style.color = '#006400';
+    } else {
+      console.error('Message element not found.');
+    }
+  }
+
+  private stylePlayAgainButton(): void {
+    const button = document.getElementById('play-again');
+    if (button) {
+      button.style.backgroundColor = '#b8ffb8';
+      button.style.borderColor = '#006400';
+
+      // Change hover
+      button.addEventListener('mouseover', () => {
+        button.style.backgroundColor = '#99ff99';
+      });
+
+      // Reset to original green when the mouse leaves the button
+      button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = '#b8ffb8';
+      });
+    } else {
+      console.error('Button with id "play-again" not found.');
+    }
   }
 
   private styleCanvas(canvas: HTMLCanvasElement): void {
@@ -123,6 +180,7 @@ export class AppComponent {
     img.style.border = '3px solid black';
     img.style.boxSizing = 'border-box';
     img.style.height = '100%';
+    img.classList.add('big-image');
   }
 
   public playAgain(): void {

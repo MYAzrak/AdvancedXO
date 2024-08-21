@@ -62,7 +62,8 @@ export class TicTacToeService {
     ];
   }
 
-  public checkBigBoardWinning(): boolean {
+  public checkBigBoardWinning(): number[] | null {
+    // Check rows
     for (let i = 0; i < 3; i++) {
       if (
         this.bigBoard[i][0] !== '' &&
@@ -70,38 +71,44 @@ export class TicTacToeService {
         this.bigBoard[i][0] === this.bigBoard[i][1] &&
         this.bigBoard[i][1] === this.bigBoard[i][2]
       ) {
-        return true;
+        return [i * 3, i * 3 + 1, i * 3 + 2]; // Row indices
       }
+    }
 
+    // Check columns
+    for (let i = 0; i < 3; i++) {
       if (
         this.bigBoard[0][i] !== '' &&
         this.bigBoard[0][i] !== '-' &&
         this.bigBoard[0][i] === this.bigBoard[1][i] &&
         this.bigBoard[1][i] === this.bigBoard[2][i]
       ) {
-        return true;
+        return [i, i + 3, i + 6]; // Column indices
       }
     }
 
+    // Check main diagonal (top-left to bottom-right)
     if (
       this.bigBoard[0][0] !== '' &&
       this.bigBoard[0][0] !== '-' &&
       this.bigBoard[0][0] === this.bigBoard[1][1] &&
       this.bigBoard[1][1] === this.bigBoard[2][2]
     ) {
-      return true;
+      return [0, 4, 8]; // Main diagonal indices
     }
 
+    // Check anti-diagonal (top-right to bottom-left)
     if (
       this.bigBoard[0][2] !== '' &&
       this.bigBoard[0][2] !== '-' &&
       this.bigBoard[0][2] === this.bigBoard[1][1] &&
       this.bigBoard[1][1] === this.bigBoard[2][0]
     ) {
-      return true;
+      return [2, 4, 6]; // Anti-diagonal indices
     }
 
-    return false;
+    // No winner found
+    return null;
   }
 
   public isBigBoardFull(): boolean {
@@ -111,11 +118,11 @@ export class TicTacToeService {
   private fillBigBoard(
     boardNum: number,
     isXTurn: boolean,
-    isTie: boolean
+    isDraw: boolean
   ): void {
     const rowIndex = Math.floor(boardNum / 3);
     const colIndex = boardNum % 3;
-    if (isTie) {
+    if (isDraw) {
       this.bigBoard[rowIndex][colIndex] = '-';
     } else {
       this.bigBoard[rowIndex][colIndex] = isXTurn ? 'X' : 'O';
