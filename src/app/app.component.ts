@@ -17,7 +17,7 @@ export class AppComponent {
   private isXTurn: boolean = true;
   public gameMsg: string = 'X Turn';
   private gameEnded: boolean = false;
-  public unblockedBoardNum: number = 0;
+  public boardNumToUnblock: number = 0;
 
   constructor(private ticTacToeService: TicTacToeService) {
     this.xImage.src = '../assets/images/X.svg';
@@ -48,7 +48,7 @@ export class AppComponent {
       for (let boardNum of winningBoardsNumbers) {
         setTimeout(() => {
           this.markAsWinningBoard(boardNum);
-        }, 1);
+        }, 0);
       }
       this.endGame(`${this.isXTurn ? 'X' : 'O'} won!`);
       this.gameEnded = true;
@@ -89,14 +89,14 @@ export class AppComponent {
 
     // XOMasters logic
     if (this.ticTacToeService.isBigBoardFilledAt(row, col)) {
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < this.smallBoardsNum; i++) {
         this.unblockBoard(i);
       }
     } else {
-      this.unblockedBoardNum = row * 3 + col;
-      for (let i = 0; i < 9; i++) {
-        if (i === this.unblockedBoardNum)
-          this.unblockBoard(this.unblockedBoardNum);
+      this.boardNumToUnblock = row * 3 + col;
+      for (let i = 0; i < this.smallBoardsNum; i++) {
+        if (i === this.boardNumToUnblock)
+          this.unblockBoard(this.boardNumToUnblock);
         else this.blockBoard(i);
       }
     }
@@ -126,14 +126,27 @@ export class AppComponent {
   }
 
   private endGame(message: string): void {
-    for (let i = 0; i < this.smallBoardsNum; i++) {
-      this.unblockBoard(i);
-    }
+    this.styleMsg(message);
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
     document.body.appendChild(canvas);
-    this.styleMsg(message);
-    this.stylePlayAgainButton();
+    for (let i = 0; i < this.smallBoardsNum; i++) {
+      setTimeout(() => this.unblockBoard(i), 0);
+    }
+  }
+
+  private unblockBoard(boardNum: number): void {
+    const smallBoard = document.getElementById(`board-${boardNum}`);
+    if (smallBoard) {
+      smallBoard.classList.remove('blocked-board');
+      // Find and remove the canvas elements
+      const canvases = smallBoard.querySelectorAll('canvas');
+      if (canvases.length > 0) {
+        canvases.forEach((canvas) => smallBoard.removeChild(canvas));
+      }
+    } else {
+      console.error(`Board-${boardNum} not found.`);
+    }
   }
 
   private styleMsg(message: string): void {
@@ -143,26 +156,6 @@ export class AppComponent {
       msgElement.style.color = '#006400';
     } else {
       console.error('Message element not found.');
-    }
-  }
-
-  private stylePlayAgainButton(): void {
-    const button = document.getElementById('play-again');
-    if (button) {
-      button.style.backgroundColor = '#b8ffb8';
-      button.style.borderColor = '#006400';
-
-      // Change hover
-      button.addEventListener('mouseover', () => {
-        button.style.backgroundColor = '#99ff99';
-      });
-
-      // Reset to original green when the mouse leaves the button
-      button.addEventListener('mouseout', () => {
-        button.style.backgroundColor = '#b8ffb8';
-      });
-    } else {
-      console.error('Button with id "play-again" not found.');
     }
   }
 
@@ -184,13 +177,10 @@ export class AppComponent {
     img.classList.add('big-image');
   }
 
-  public playAgain(): void {
-    location.reload();
-  }
-
   private blockBoard(boardNum: number): void {
     const smallBoard = document.getElementById(`board-${boardNum}`);
     if (smallBoard) {
+      if (smallBoard.classList.contains('blocked-board')) return;
       smallBoard.classList.add('blocked-board');
 
       // Draw a temporary canvas on that board
@@ -211,17 +201,5 @@ export class AppComponent {
     }
   }
 
-  private unblockBoard(boardNum: number): void {
-    const smallBoard = document.getElementById(`board-${boardNum}`);
-    if (smallBoard) {
-      smallBoard.classList.remove('blocked-board');
-      // Find and remove the canvas element
-      const canvases = smallBoard.querySelectorAll('canvas');
-      if (canvases.length > 0) {
-        canvases.forEach((canvas) => smallBoard.removeChild(canvas));
-      }
-    } else {
-      console.error(`Board-${boardNum} not found.`);
-    }
-  }
+  public showTopTenWinners() {}
 }
