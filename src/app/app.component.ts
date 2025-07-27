@@ -127,6 +127,7 @@ export class AppComponent {
 
   private endGame(message: string): void {
     this.styleMsg(message);
+    this.stylePlayAgainButton();
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
     document.body.appendChild(canvas);
@@ -159,6 +160,26 @@ export class AppComponent {
     }
   }
 
+  private stylePlayAgainButton(): void {
+    const button = document.getElementById('play-again');
+    if (button) {
+      button.style.backgroundColor = '#b8ffb8';
+      button.style.borderColor = '#006400';
+      button.innerText = 'Play Again'
+      // Change hover
+      button.addEventListener('mouseover', () => {
+        button.style.backgroundColor = '#99ff99';
+      });
+
+      // Reset to original green when the mouse leaves the button
+      button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = '#b8ffb8';
+      });
+    } else {
+      console.error('Button with id "play-again" not found.');
+    }
+  }
+
   private styleCanvas(canvas: HTMLCanvasElement): void {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -175,6 +196,10 @@ export class AppComponent {
     img.style.boxSizing = 'border-box';
     img.style.height = '100%';
     img.classList.add('big-image');
+  }
+
+  public playAgain(): void {
+    location.reload();
   }
 
   private blockBoard(boardNum: number): void {
