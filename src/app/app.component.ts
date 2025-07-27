@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { TicTacToeService } from './services/tic-tac-toe.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   private readonly xImage: HTMLImageElement = document.createElement('img');
   private readonly oImage: HTMLImageElement = document.createElement('img');
-  private readonly minusImage: HTMLImageElement = document.createElement('img');
+  private readonly minusImage: HTMLImageElement = document.createElement('img'); // Indicates a draw
+
+  private smallBoardsNum: number = 9;
   private isXTurn: boolean = true;
   public gameMsg: string = 'X Turn';
   private gameEnded: boolean = false;
@@ -125,11 +126,8 @@ export class AppComponent {
   }
 
   private endGame(message: string): void {
-    const boards = document.getElementsByClassName(
-      'blocked-board'
-    ) as HTMLCollectionOf<HTMLDivElement>;
-    for (let i = 0; i < boards.length; i++) {
-      boards[i].classList.remove('blocked-board');
+    for (let i = 0; i < this.smallBoardsNum; i++) {
+      this.unblockBoard(i);
     }
     const canvas = document.createElement('canvas');
     this.styleCanvas(canvas);
@@ -221,7 +219,6 @@ export class AppComponent {
       const canvases = smallBoard.querySelectorAll('canvas');
       if (canvases.length > 0) {
         canvases.forEach((canvas) => smallBoard.removeChild(canvas));
-      } else {
       }
     } else {
       console.error(`Board-${boardNum} not found.`);

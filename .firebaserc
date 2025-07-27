@@ -1,7 +1,6 @@
 {
   "projects": {
-    "default": "xomasters",
-    "main": "advancedxo"
+    "default": "xomasters"
   },
   "targets": {},
   "etags": {},
