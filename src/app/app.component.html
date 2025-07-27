@@ -1,3 +1,13 @@
+<header>
+  <button class="friend-button">
+    <span class="emoji">🤝</span>
+    Play With a Friend?
+  </button>
+  <img id="winners" src="../assets/images/gold-winner-trophy-icon.svg" title="Top 10 Winners" alt="Top 10 Winners"
+    (click)="showTopTenWinners()">
+</header>
+
+
 <div id="game">
   <h1 id="game-result">{{gameMsg}}</h1>
   <div id="ultimate-board">
@@ -101,5 +111,4 @@
       <button class="cell" (click)="drawInSmallBoard(8,2,2,$event)"></button>
     </div>
   </div>
-  <button id="play-again" (click)="playAgain()">Reset</button>
 </div>
